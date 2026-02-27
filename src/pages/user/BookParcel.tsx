@@ -21,8 +21,8 @@ const BookParcel = () => {
   return (
     <DashboardLayout role="user">
       <div className="mb-8">
-        <h1 className="font-display text-3xl font-bold text-foreground">Book a Parcel</h1>
-        <p className="mt-1 text-muted-foreground">Fill in the details and let AI handle the rest</p>
+        <h1 className="font-display text-3xl font-bold text-white">Book a Parcel</h1>
+        <p className="mt-1 text-white/50">Fill in the details and let AI handle the rest</p>
       </div>
 
       {/* Step indicator */}
@@ -30,52 +30,52 @@ const BookParcel = () => {
         {["Address", "Parcel Details", "Review"].map((s, i) => (
           <div key={s} className="flex items-center gap-2">
             <div className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold ${
-              step > i + 1 ? "bg-success text-success-foreground" :
-              step === i + 1 ? "bg-accent-gradient text-accent-foreground" :
-              "bg-muted text-muted-foreground"
+              step > i + 1 ? "bg-emerald-500 text-white" :
+              step === i + 1 ? "bg-gradient-to-r from-orange-500 to-violet-600 text-white" :
+              "bg-white/10 text-white/40"
             }`}>
               {step > i + 1 ? <CheckCircle className="h-4 w-4" /> : i + 1}
             </div>
-            <span className={`text-sm font-medium ${step === i + 1 ? "text-foreground" : "text-muted-foreground"}`}>{s}</span>
-            {i < 2 && <div className="mx-2 h-px w-8 bg-border" />}
+            <span className={`text-sm font-medium ${step === i + 1 ? "text-white" : "text-white/40"}`}>{s}</span>
+            {i < 2 && <div className="mx-2 h-px w-8 bg-white/10" />}
           </div>
         ))}
       </div>
 
-      <div className="max-w-2xl rounded-xl border border-border bg-card p-6 shadow-card">
+      <div className="max-w-2xl rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-sm">
         <AnimatePresence mode="wait">
           {step === 1 && (
             <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4">
               <div>
-                <Label>Source Address</Label>
-                <Textarea placeholder="Enter full source address" className="mt-1" defaultValue="42, MG Road, Pune, Maharashtra 411001" />
+                <Label className="text-white/70">Source Address</Label>
+                <Textarea placeholder="Enter full source address" className="mt-1 border-white/10 bg-white/5 text-white placeholder:text-white/30 focus-visible:ring-orange-500/50" defaultValue="42, MG Road, Pune, Maharashtra 411001" />
               </div>
               <div>
-                <Label>Destination Address</Label>
-                <Textarea placeholder="Enter full destination address" className="mt-1" defaultValue="15, Connaught Place, New Delhi 110001" />
+                <Label className="text-white/70">Destination Address</Label>
+                <Textarea placeholder="Enter full destination address" className="mt-1 border-white/10 bg-white/5 text-white placeholder:text-white/30 focus-visible:ring-orange-500/50" defaultValue="15, Connaught Place, New Delhi 110001" />
               </div>
 
               {!aiValidated ? (
-                <Button onClick={handleValidate} variant="outline" className="gap-2">
-                  <Brain className="h-4 w-4 text-accent" /> Validate with AI
+                <Button onClick={handleValidate} variant="outline" className="gap-2 border-white/20 bg-white/5 text-white hover:bg-white/10">
+                  <Brain className="h-4 w-4 text-orange-400" /> Validate with AI
                 </Button>
               ) : (
-                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="rounded-lg border border-success/30 bg-success/5 p-4">
-                  <div className="flex items-center gap-2 text-success">
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 p-4">
+                  <div className="flex items-center gap-2 text-emerald-400">
                     <CheckCircle className="h-5 w-5" />
                     <span className="font-medium">AI Validated</span>
                   </div>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Nearest post office identified: <strong className="text-foreground">Pune GPO (MH-PNQ-001)</strong>
+                  <p className="mt-2 text-sm text-white/50">
+                    Nearest post office identified: <strong className="text-white">Pune GPO (MH-PNQ-001)</strong>
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    Destination post office: <strong className="text-foreground">New Delhi GPO (DL-NDL-001)</strong>
+                  <p className="text-sm text-white/50">
+                    Destination post office: <strong className="text-white">New Delhi GPO (DL-NDL-001)</strong>
                   </p>
                 </motion.div>
               )}
 
               <div className="flex justify-end">
-                <Button onClick={() => setStep(2)} disabled={!aiValidated} className="bg-accent-gradient text-accent-foreground hover:opacity-90">
+                <Button onClick={() => setStep(2)} disabled={!aiValidated} className="bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90">
                   Next <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -86,14 +86,14 @@ const BookParcel = () => {
             <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <Label>Parcel Weight (kg)</Label>
-                  <Input type="number" className="mt-1" defaultValue="2.5" />
+                  <Label className="text-white/70">Parcel Weight (kg)</Label>
+                  <Input type="number" className="mt-1 border-white/10 bg-white/5 text-white placeholder:text-white/30 focus-visible:ring-orange-500/50" defaultValue="2.5" />
                 </div>
                 <div>
-                  <Label>Parcel Type</Label>
+                  <Label className="text-white/70">Parcel Type</Label>
                   <Select defaultValue="standard">
-                    <SelectTrigger className="mt-1"><SelectValue /></SelectTrigger>
-                    <SelectContent>
+                    <SelectTrigger className="mt-1 border-white/10 bg-white/5 text-white"><SelectValue /></SelectTrigger>
+                    <SelectContent className="border-white/10 bg-[#18181b] text-white">
                       <SelectItem value="standard">Standard</SelectItem>
                       <SelectItem value="express">Express</SelectItem>
                       <SelectItem value="fragile">Fragile</SelectItem>
@@ -102,12 +102,12 @@ const BookParcel = () => {
                 </div>
               </div>
               <div>
-                <Label>Description</Label>
-                <Textarea className="mt-1" placeholder="Brief parcel description" defaultValue="Electronics - laptop charger" />
+                <Label className="text-white/70">Description</Label>
+                <Textarea className="mt-1 border-white/10 bg-white/5 text-white placeholder:text-white/30 focus-visible:ring-orange-500/50" placeholder="Brief parcel description" defaultValue="Electronics - laptop charger" />
               </div>
               <div className="flex justify-between">
-                <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
-                <Button onClick={() => setStep(3)} className="bg-accent-gradient text-accent-foreground hover:opacity-90">
+                <Button variant="outline" onClick={() => setStep(1)} className="border-white/20 bg-white/5 text-white hover:bg-white/10">Back</Button>
+                <Button onClick={() => setStep(3)} className="bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90">
                   Next <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
@@ -116,16 +116,16 @@ const BookParcel = () => {
 
           {step === 3 && (
             <motion.div key="step3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
-              <div className="space-y-3 rounded-lg bg-muted/50 p-4">
-                <div className="flex justify-between text-sm"><span className="text-muted-foreground">From</span><span className="text-foreground">42, MG Road, Pune</span></div>
-                <div className="flex justify-between text-sm"><span className="text-muted-foreground">To</span><span className="text-foreground">15, Connaught Place, Delhi</span></div>
-                <div className="flex justify-between text-sm"><span className="text-muted-foreground">Weight</span><span className="text-foreground">2.5 kg</span></div>
-                <div className="flex justify-between text-sm"><span className="text-muted-foreground">Type</span><span className="text-foreground">Standard</span></div>
-                <div className="border-t border-border pt-3 flex justify-between font-medium"><span>Estimated Cost</span><span className="text-accent">₹185</span></div>
+              <div className="space-y-3 rounded-lg bg-white/5 p-4">
+                <div className="flex justify-between text-sm"><span className="text-white/50">From</span><span className="text-white">42, MG Road, Pune</span></div>
+                <div className="flex justify-between text-sm"><span className="text-white/50">To</span><span className="text-white">15, Connaught Place, Delhi</span></div>
+                <div className="flex justify-between text-sm"><span className="text-white/50">Weight</span><span className="text-white">2.5 kg</span></div>
+                <div className="flex justify-between text-sm"><span className="text-white/50">Type</span><span className="text-white">Standard</span></div>
+                <div className="border-t border-white/[0.08] pt-3 flex justify-between font-medium"><span className="text-white">Estimated Cost</span><span className="text-orange-400">₹185</span></div>
               </div>
               <div className="flex justify-between">
-                <Button variant="outline" onClick={() => setStep(2)}>Back</Button>
-                <Button onClick={() => navigate("/user/payment")} className="bg-accent-gradient text-accent-foreground hover:opacity-90">
+                <Button variant="outline" onClick={() => setStep(2)} className="border-white/20 bg-white/5 text-white hover:bg-white/10">Back</Button>
+                <Button onClick={() => navigate("/user/payment")} className="bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90">
                   <Package className="mr-2 h-4 w-4" /> Proceed to Payment
                 </Button>
               </div>

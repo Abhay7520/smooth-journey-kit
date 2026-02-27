@@ -33,18 +33,24 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
   const items = navItems[role];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#050508]">
+      {/* Ambient glow orbs */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <div className="absolute left-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-orange-500/5 blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 h-[400px] w-[400px] rounded-full bg-violet-500/5 blur-[100px]" />
+      </div>
+
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 z-40 flex h-full w-64 flex-col bg-sidebar text-sidebar-foreground">
-        <div className="flex h-16 items-center gap-2 border-b border-sidebar-border px-6">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-gradient">
-            <Package className="h-4 w-4 text-accent-foreground" />
+      <aside className="fixed left-0 top-0 z-40 flex h-full w-64 flex-col border-r border-white/[0.08] bg-[#08080c]">
+        <div className="flex h-16 items-center gap-2 border-b border-white/[0.08] px-6">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-orange-500 to-violet-600">
+            <Package className="h-4 w-4 text-white" />
           </div>
-          <span className="font-display text-lg font-bold">AIPOSTAL</span>
+          <span className="font-display text-lg font-bold text-white">AIPOSTAL</span>
         </div>
 
         <div className="px-4 pt-4">
-          <span className="text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/50">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white/30">
             {roleLabels[role]} Panel
           </span>
         </div>
@@ -58,8 +64,8 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
                 to={item.path}
                 className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   active
-                    ? "bg-sidebar-accent text-sidebar-primary"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+                    ? "bg-gradient-to-r from-orange-500/20 to-violet-600/10 text-orange-400 border border-orange-500/20"
+                    : "text-white/50 hover:bg-white/[0.04] hover:text-white/80"
                 }`}
               >
                 <item.icon className="h-4 w-4" />
@@ -69,10 +75,10 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
           })}
         </nav>
 
-        <div className="border-t border-sidebar-border p-3">
+        <div className="border-t border-white/[0.08] p-3">
           <Link
             to="/"
-            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent/50 hover:text-sidebar-foreground"
+            className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/40 transition-colors hover:bg-white/[0.04] hover:text-white"
           >
             <LogOut className="h-4 w-4" />
             Logout
@@ -81,7 +87,7 @@ const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
       </aside>
 
       {/* Main content */}
-      <main className="ml-64 flex-1 p-8">
+      <main className="relative z-10 ml-64 flex-1 p-8">
         {children}
       </main>
     </div>
