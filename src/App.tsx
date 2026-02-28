@@ -13,6 +13,7 @@ import OrderConfirmation from "./pages/user/OrderConfirmation";
 import TrackParcel from "./pages/user/TrackParcel";
 import UserOrders from "./pages/user/UserOrders";
 import StaffDashboard from "./pages/staff/StaffDashboard";
+import DeliveryAgentDashboard from "./pages/staff/DeliveryAgentDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
@@ -37,6 +38,7 @@ const App = () => (
           <Route path="/user/orders" element={<UserOrders />} />
           {/* Staff routes */}
           <Route path="/staff/dashboard" element={<StaffDashboard />} />
+          <Route path="/staff/delivery" element={<DeliveryAgentDashboard />} />
           <Route path="/staff/parcels" element={<StaffDashboard />} />
           <Route path="/staff/update" element={<StaffDashboard />} />
           {/* Admin routes */}
