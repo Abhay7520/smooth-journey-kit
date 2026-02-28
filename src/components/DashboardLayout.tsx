@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Package, LayoutDashboard, Truck, MapPin, ClipboardList, AlertTriangle, LogOut, Users, BarChart3 } from "lucide-react";
+import { Package, LayoutDashboard, Truck, MapPin, ClipboardList, AlertTriangle, LogOut, Users, BarChart3, Navigation } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -15,6 +15,7 @@ const navItems = {
   ],
   staff: [
     { label: "Dashboard", icon: LayoutDashboard, path: "/staff/dashboard" },
+    { label: "Delivery Agent", icon: Navigation, path: "/staff/delivery" },
     { label: "Assigned Parcels", icon: Truck, path: "/staff/parcels" },
     { label: "Update Status", icon: ClipboardList, path: "/staff/update" },
   ],
