@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import { Package, Truck, AlertTriangle, CheckCircle, Clock, TrendingUp, Bell, MapPin, ScanLine, MessageSquare, X, Navigation, Phone, IndianRupee, Star, KeyRound, PhoneCall } from "lucide-react";
+import { Package, Truck, AlertTriangle, CheckCircle, Clock, TrendingUp, Bell, MapPin, ScanLine, MessageSquare, X, Navigation, Phone, IndianRupee, Star, KeyRound, PhoneCall, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
@@ -8,10 +8,10 @@ import LeafletMap from "@/components/LeafletMap";
 
 // ── Staff data ──
 const stats = [
-  { label: "Assigned", value: "8", icon: Package, color: "text-orange-400", change: "+2 today" },
-  { label: "In Transit", value: "5", icon: Truck, color: "text-blue-400", change: "3 on route" },
-  { label: "High Risk", value: "2", icon: AlertTriangle, color: "text-red-400", change: "1 critical" },
-  { label: "Completed Today", value: "3", icon: CheckCircle, color: "text-emerald-400", change: "75% on time" },
+  { label: "Assigned", value: "8", icon: Package, color: "text-orange-400", bg: "from-orange-500/20 to-orange-500/5", border: "border-orange-500/20", change: "+2 today" },
+  { label: "In Transit", value: "5", icon: Truck, color: "text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20", change: "3 on route" },
+  { label: "High Risk", value: "2", icon: AlertTriangle, color: "text-red-400", bg: "from-red-500/20 to-red-500/5", border: "border-red-500/20", change: "1 critical" },
+  { label: "Completed Today", value: "3", icon: CheckCircle, color: "text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20", change: "75% on time" },
 ];
 
 const performanceStats = [
@@ -102,11 +102,17 @@ const StaffDashboard = () => {
       {/* Header with Delivery Agent Toggle */}
       <div className="mb-8 flex items-start justify-between">
         <div>
+          {!isDeliveryMode && (
+            <div className="mb-1 flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-orange-400" />
+              <span className="text-xs font-medium uppercase tracking-wider text-orange-400/80">Staff Control Center</span>
+            </div>
+          )}
           <h1 className="font-display text-3xl font-bold text-white">
-            {isDeliveryMode ? "Delivery Agent" : "Staff Dashboard"}
+            {isDeliveryMode ? "Delivery Agent" : "Welcome back, Staff 👋"}
           </h1>
           <p className="mt-1 text-white/50">
-            {isDeliveryMode ? "Your deliveries and route for today" : "Manage your assigned deliveries"}
+            {isDeliveryMode ? "Your deliveries and route for today" : <>You have <span className="font-semibold text-orange-400">8 assigned parcels</span> to manage today</>}
           </p>
         </div>
         <div className="flex gap-2">
@@ -115,7 +121,7 @@ const StaffDashboard = () => {
             size="sm"
             variant={isDeliveryMode ? "default" : "outline"}
             className={isDeliveryMode
-              ? "bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90"
+              ? "bg-gradient-to-r from-orange-500 to-violet-600 text-white shadow-lg shadow-orange-500/20 hover:opacity-90"
               : "border-white/10 bg-white/5 text-white hover:bg-white/10"}
             onClick={() => setIsDeliveryMode(!isDeliveryMode)}
           >
@@ -131,7 +137,7 @@ const StaffDashboard = () => {
                 <Bell className="h-4 w-4" />
                 <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">4</span>
               </Button>
-              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90" onClick={handleScan}>
+              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-violet-600 text-white shadow-lg shadow-orange-500/20 hover:opacity-90" onClick={handleScan}>
                 <ScanLine className="mr-2 h-4 w-4" />
                 {scanMode ? "Scanning..." : "Scan Parcel"}
               </Button>
@@ -386,13 +392,15 @@ const StaffDashboard = () => {
             {/* Stat Cards */}
             <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                  className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-5 backdrop-blur-sm">
+                <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                  className={`group relative overflow-hidden rounded-xl border ${s.border} bg-gradient-to-b ${s.bg} p-5 backdrop-blur-sm transition-all hover:scale-[1.02] hover:shadow-lg`}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/50">{s.label}</span>
-                    <s.icon className={`h-5 w-5 ${s.color}`} />
+                    <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.06] ${s.color}`}>
+                      <s.icon className="h-4 w-4" />
+                    </div>
                   </div>
-                  <p className="mt-2 font-display text-2xl font-bold text-white">{s.value}</p>
+                  <p className="mt-3 font-display text-3xl font-bold text-white">{s.value}</p>
                   <p className="mt-1 text-xs text-white/30">{s.change}</p>
                 </motion.div>
               ))}
