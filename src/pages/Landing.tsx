@@ -22,9 +22,9 @@ const steps = [
 ];
 
 const roles = [
-  { role: "User", desc: "Book, pay, and track parcels with AI-powered predictions.", path: "/login?role=user", items: ["Book parcels", "AI delivery ETA", "Real-time tracking"], gradient: "from-orange-500 to-violet-600", check: "text-orange-400" },
-  { role: "Staff", desc: "Manage deliveries with smart prioritization and risk indicators.", path: "/login?role=staff", items: ["View assignments", "Risk indicators", "Status updates"], gradient: "from-violet-600 to-indigo-600", check: "text-violet-400" },
-  { role: "Admin", desc: "Monitor operations with anomaly detection and analytics.", path: "/login?role=admin", items: ["System overview", "Anomaly detection", "Staff management"], gradient: "from-indigo-600 to-orange-500", check: "text-indigo-400" },
+  { role: "User", desc: "Book, pay, and track parcels with AI-powered predictions.", path: "/auth/user/login", items: ["Book parcels", "AI delivery ETA", "Real-time tracking"], gradient: "from-orange-500 to-violet-600", check: "text-orange-400" },
+  { role: "Staff", desc: "Manage deliveries with smart prioritization and risk indicators.", path: "/auth/staff/login", items: ["View assignments", "Risk indicators", "Status updates"], gradient: "from-violet-600 to-indigo-600", check: "text-violet-400" },
+  { role: "Admin", desc: "Monitor operations with anomaly detection and analytics.", path: "/auth/admin/login", items: ["System overview", "Anomaly detection", "Staff management"], gradient: "from-indigo-600 to-orange-500", check: "text-indigo-400" },
 ];
 
 const featureColors = [
@@ -120,7 +120,7 @@ const Landing = () => {
               className="flex flex-wrap gap-4"
             >
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Link to="/register">
+                <Link to="/auth/select/register">
                   <Button
                     size="lg"
                     className="group relative overflow-hidden border-0 bg-gradient-to-r from-orange-500 to-violet-600 font-bold text-white shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-shadow"
@@ -132,7 +132,7 @@ const Landing = () => {
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-                <Link to="/login">
+                <Link to="/auth/select/login">
                   <Button
                     size="lg"
                     variant="outline"
