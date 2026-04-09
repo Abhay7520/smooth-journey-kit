@@ -29,8 +29,8 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? "border-b border-white/10 bg-black/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
-          : "border-b border-transparent bg-transparent"
+        ? "border-b border-white/10 bg-black/70 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+        : "border-b border-transparent bg-transparent"
         }`}
     >
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
@@ -213,4 +213,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar; 

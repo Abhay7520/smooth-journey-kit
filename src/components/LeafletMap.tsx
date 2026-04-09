@@ -15,6 +15,7 @@ interface LeafletMapProps {
   center?: [number, number];
   zoom?: number;
   className?: string;
+  showRoute?: boolean;
 }
 
 const statusColors: Record<string, string> = {
@@ -24,7 +25,7 @@ const statusColors: Record<string, string> = {
   current: "#f97316",
 };
 
-const LeafletMap = ({ markers, center = [22.5, 78.5], zoom = 5, className = "" }: LeafletMapProps) => {
+const LeafletMap = ({ markers, center = [22.5, 78.5], zoom = 5, className = "", showRoute = false }: LeafletMapProps) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
 
@@ -57,14 +58,27 @@ const LeafletMap = ({ markers, center = [22.5, 78.5], zoom = 5, className = "" }
     const map = mapInstanceRef.current;
     if (!map) return;
 
-    // Clear existing markers
+    // Clear existing layers
     map.eachLayer((layer) => {
-      if (layer instanceof L.CircleMarker) map.removeLayer(layer);
+      if (layer instanceof L.CircleMarker || layer instanceof L.Polyline) {
+        map.removeLayer(layer);
+      }
     });
+
+    if (showRoute && markers.length > 1) {
+      const latlngs = markers.map(m => [m.lat, m.lng] as [number, number]);
+      L.polyline(latlngs, {
+        color: "#f97316",
+        weight: 2,
+        opacity: 0.5,
+        dashArray: "10, 10",
+        className: "ai-route-line"
+      }).addTo(map);
+    }
 
     markers.forEach((m) => {
       const color = statusColors[m.status] || "#3b82f6";
-      
+
       // Outer pulse ring
       L.circleMarker([m.lat, m.lng], {
         radius: 12,
@@ -129,6 +143,15 @@ const LeafletMap = ({ markers, center = [22.5, 78.5], zoom = 5, className = "" }
         .leaflet-control-zoom a:hover {
           background: rgba(20,20,30,0.95) !important;
           color: #fff !important;
+        }
+        @keyframes dash {
+          to {
+            stroke-dashoffset: -100;
+          }
+        }
+        .ai-route-line {
+          stroke-dasharray: 10, 10;
+          animation: dash 20s linear infinite;
         }
       `}</style>
     </div>

@@ -169,7 +169,7 @@ const StaffDashboard = () => {
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" /> Live
                 </span>
               </div>
-              <LeafletMap markers={deliveryMapMarkers} center={[22, 80]} zoom={5} className="h-[280px]" />
+              <LeafletMap markers={deliveryMapMarkers} center={[22, 80]} zoom={5} className="h-[280px]" showRoute={true} />
             </div>
 
             <div className="grid gap-6 lg:grid-cols-3">
@@ -188,12 +188,11 @@ const StaffDashboard = () => {
                       <div key={stop.id} className={`p-4 ${isCurrent ? "bg-orange-500/5" : "hover:bg-white/[0.04]"}`}>
                         <div className="flex items-start gap-3">
                           <div className="mt-1 flex flex-col items-center">
-                            <div className={`flex h-6 w-6 items-center justify-center rounded-full ${
-                              isDelivered ? "bg-emerald-500/20" : isCurrent ? "bg-orange-500/20 ring-2 ring-orange-500/30" : "bg-white/[0.08]"
-                            }`}>
+                            <div className={`flex h-6 w-6 items-center justify-center rounded-full ${isDelivered ? "bg-emerald-500/20" : isCurrent ? "bg-orange-500/20 ring-2 ring-orange-500/30" : "bg-white/[0.08]"
+                              }`}>
                               {isDelivered ? <CheckCircle className="h-3.5 w-3.5 text-emerald-400" /> :
-                               isCurrent ? <Package className="h-3.5 w-3.5 text-orange-400" /> :
-                               <Clock className="h-3.5 w-3.5 text-white/30" />}
+                                isCurrent ? <Package className="h-3.5 w-3.5 text-orange-400" /> :
+                                  <Clock className="h-3.5 w-3.5 text-white/30" />}
                             </div>
                             {i < todaysStops.length - 1 && (
                               <div className={`mt-1 h-8 w-px ${isDelivered ? "bg-emerald-500/30" : "bg-white/[0.08]"}`} />
@@ -202,9 +201,8 @@ const StaffDashboard = () => {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <span className={`text-sm font-medium ${isDelivered ? "text-white/40 line-through" : "text-orange-400"}`}>{stop.id}</span>
-                              <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
-                                isDelivered ? "bg-emerald-500/10 text-emerald-400" : isCurrent ? "bg-orange-500/10 text-orange-400" : "bg-white/10 text-white/40"
-                              }`}>{isDelivered ? "Delivered" : isCurrent ? "Current" : stop.eta}</span>
+                              <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${isDelivered ? "bg-emerald-500/10 text-emerald-400" : isCurrent ? "bg-orange-500/10 text-orange-400" : "bg-white/10 text-white/40"
+                                }`}>{isDelivered ? "Delivered" : isCurrent ? "Current" : stop.eta}</span>
                             </div>
                             <p className={`mt-1 text-sm ${isDelivered ? "text-white/30" : "text-white/80"}`}>{stop.customer}</p>
                             <p className="text-xs text-white/40">{stop.address}</p>
@@ -369,9 +367,8 @@ const StaffDashboard = () => {
                   <div className="divide-y divide-white/[0.06]">
                     {notifications.map((n) => (
                       <div key={n.id} className="flex items-start gap-3 p-4 hover:bg-white/[0.04]">
-                        <div className={`mt-0.5 h-2 w-2 rounded-full ${
-                          n.type === "alert" ? "bg-red-400" : n.type === "success" ? "bg-emerald-400" : "bg-blue-400"
-                        }`} />
+                        <div className={`mt-0.5 h-2 w-2 rounded-full ${n.type === "alert" ? "bg-red-400" : n.type === "success" ? "bg-emerald-400" : "bg-blue-400"
+                          }`} />
                         <div className="flex-1">
                           <p className="text-sm text-white/80">{n.msg}</p>
                           <span className="text-xs text-white/30">{n.time}</span>
@@ -466,11 +463,10 @@ const StaffDashboard = () => {
                         <td className="px-5 py-4 font-medium text-orange-400">{p.id}</td>
                         <td className="px-5 py-4 text-sm text-white/80">{p.dest}</td>
                         <td className="px-5 py-4">
-                          <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                            p.priority === "Urgent" ? "bg-red-500/10 text-red-400" :
-                            p.priority === "High" ? "bg-amber-500/10 text-amber-400" :
-                            "bg-white/10 text-white/50"
-                          }`}>{p.priority}</span>
+                          <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${p.priority === "Urgent" ? "bg-red-500/10 text-red-400" :
+                              p.priority === "High" ? "bg-amber-500/10 text-amber-400" :
+                                "bg-white/10 text-white/50"
+                            }`}>{p.priority}</span>
                         </td>
                         <td className="px-5 py-4">
                           <span className={`text-xs font-medium ${p.risk === "High" ? "text-red-400" : p.risk === "Medium" ? "text-amber-400" : "text-emerald-400"}`}>
@@ -479,9 +475,8 @@ const StaffDashboard = () => {
                           </span>
                         </td>
                         <td className="px-5 py-4">
-                          <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                            p.status === "In Transit" ? "bg-blue-500/10 text-blue-400" : "bg-orange-500/10 text-orange-400"
-                          }`}>{p.status}</span>
+                          <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${p.status === "In Transit" ? "bg-blue-500/10 text-blue-400" : "bg-orange-500/10 text-orange-400"
+                            }`}>{p.status}</span>
                         </td>
                         <td className="px-5 py-4">
                           <Select defaultValue={p.status.toLowerCase().replace(" ", "-")}>
