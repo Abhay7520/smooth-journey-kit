@@ -2,10 +2,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import AuthRoleSelect from "./pages/auth/AuthRoleSelect";
+import AuthPage from "./pages/auth/AuthPage";
 import UserDashboard from "./pages/user/UserDashboard";
 import BookParcel from "./pages/user/BookParcel";
 import Payment from "./pages/user/Payment";
@@ -13,7 +13,6 @@ import OrderConfirmation from "./pages/user/OrderConfirmation";
 import TrackParcel from "./pages/user/TrackParcel";
 import UserOrders from "./pages/user/UserOrders";
 import StaffDashboard from "./pages/staff/StaffDashboard";
-
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
@@ -27,8 +26,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* Auth routes */}
+          <Route path="/auth/select/login" element={<AuthRoleSelect mode="login" />} />
+          <Route path="/auth/select/register" element={<AuthRoleSelect mode="register" />} />
+          <Route path="/auth/:role/:mode" element={<AuthPage />} />
+          {/* Legacy redirects */}
+          <Route path="/login" element={<Navigate to="/auth/select/login" replace />} />
+          <Route path="/register" element={<Navigate to="/auth/select/register" replace />} />
           {/* User routes */}
           <Route path="/user/dashboard" element={<UserDashboard />} />
           <Route path="/user/book" element={<BookParcel />} />

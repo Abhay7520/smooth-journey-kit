@@ -80,7 +80,7 @@ const Navbar = () => {
 
           <div className="ml-4 flex items-center gap-2">
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
-              <Link to="/login">
+              <Link to="/auth/select/login">
                 <Button
                   variant="ghost"
                   size="sm"
@@ -92,7 +92,7 @@ const Navbar = () => {
             </motion.div>
 
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <Link to="/register">
+              <Link to="/auth/select/register">
                 <Button
                   size="sm"
                   className="relative overflow-hidden font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 shadow-lg shadow-violet-500/25 border-0 transition-all duration-200"
@@ -182,7 +182,7 @@ const Navbar = () => {
               <motion.div
                 variants={{ hidden: { opacity: 0, x: -16 }, visible: { opacity: 1, x: 0 } }}
               >
-                <Link to="/login" onClick={() => setOpen(false)}>
+                <Link to="/auth/select/login" onClick={() => setOpen(false)}>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -196,7 +196,7 @@ const Navbar = () => {
               <motion.div
                 variants={{ hidden: { opacity: 0, x: -16 }, visible: { opacity: 1, x: 0 } }}
               >
-                <Link to="/register" onClick={() => setOpen(false)}>
+                <Link to="/auth/select/register" onClick={() => setOpen(false)}>
                   <Button
                     size="sm"
                     className="w-full font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:opacity-90 border-0"
