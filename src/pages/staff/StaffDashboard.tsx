@@ -116,7 +116,7 @@ const StaffDashboard = () => {
   ];
 
   return (
-    <DashboardLayout role="staff">
+    <DashboardLayout role="staff" backgroundImage={bgStaffDashboard}>
       {/* Header */}
       <div className="mb-8 flex items-start justify-between">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>

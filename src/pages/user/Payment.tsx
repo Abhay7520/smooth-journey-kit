@@ -24,7 +24,7 @@ const Payment = () => {
   };
 
   return (
-    <DashboardLayout role="user">
+    <DashboardLayout role="user" backgroundImage={bgPayment}>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Payment</h1>
         <p className="mt-1 text-white/50">Complete your booking</p>

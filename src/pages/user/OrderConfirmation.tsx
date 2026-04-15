@@ -10,7 +10,7 @@ const OrderConfirmation = () => {
   const trackingId = "AP-20260004";
 
   return (
-    <DashboardLayout role="user">
+    <DashboardLayout role="user" backgroundImage={bgOrderConfirm}>
       <div className="flex min-h-[60vh] items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}

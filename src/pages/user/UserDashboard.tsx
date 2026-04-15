@@ -97,7 +97,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <DashboardLayout role="user">
+    <DashboardLayout role="user" backgroundImage={bgUserDashboard}>
       {/* Welcome Banner */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}

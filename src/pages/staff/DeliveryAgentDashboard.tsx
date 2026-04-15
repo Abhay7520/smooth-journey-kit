@@ -46,7 +46,7 @@ const DeliveryAgentDashboard = () => {
   ];
 
   return (
-    <DashboardLayout role="staff">
+    <DashboardLayout role="staff" backgroundImage={bgDeliveryAgent}>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Delivery Agent</h1>
         <p className="mt-1 text-white/50">Your deliveries and route for today</p>

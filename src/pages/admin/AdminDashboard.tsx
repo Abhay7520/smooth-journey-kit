@@ -81,7 +81,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const AdminDashboard = () => {
   return (
-    <DashboardLayout role="admin">
+    <DashboardLayout role="admin" backgroundImage={bgAdminDashboard}>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Admin Dashboard</h1>
         <p className="mt-1 text-white/50">System overview and AI analytics</p>
