@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import bgUserOrders from "@/assets/bg-user-orders.jpg";
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";

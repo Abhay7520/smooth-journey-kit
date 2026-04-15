@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import bgStaffDashboard from "@/assets/bg-staff-dashboard.jpg";
 import { Package, Truck, AlertTriangle, CheckCircle, Clock, TrendingUp, Bell, MapPin, ScanLine, MessageSquare, X, Navigation, Phone, IndianRupee, Star, KeyRound, PhoneCall, Sparkles, Timer, Target, Award, Flame, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";

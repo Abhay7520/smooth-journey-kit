@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import bgAdminDashboard from "@/assets/bg-admin-dashboard.jpg";
 import { Package, Truck, AlertTriangle, CheckCircle, Users, Clock, Trophy, IndianRupee, Bell, ShieldAlert } from "lucide-react";
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from "recharts";

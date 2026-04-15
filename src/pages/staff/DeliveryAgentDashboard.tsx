@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import bgDeliveryAgent from "@/assets/bg-delivery-agent.jpg";
 import { Package, CheckCircle, MapPin, Phone, IndianRupee, Navigation, Clock, Star, KeyRound, X, PhoneCall, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";

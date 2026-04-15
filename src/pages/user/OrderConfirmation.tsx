@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
+import bgOrderConfirm from "@/assets/bg-order-confirm.jpg";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, MapPin, Copy, Clock, Shield } from "lucide-react";
 import { motion } from "framer-motion";

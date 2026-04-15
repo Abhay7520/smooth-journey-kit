@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import bgTrackParcel from "@/assets/bg-track-parcel.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Package, MapPin, CheckCircle, Truck, Building2, Clock, AlertTriangle } from "lucide-react";
