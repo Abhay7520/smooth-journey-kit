@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
+import bgBookParcel from "@/assets/bg-book-parcel.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,7 +20,7 @@ const BookParcel = () => {
   };
 
   return (
-    <DashboardLayout role="user">
+    <DashboardLayout role="user" backgroundImage={bgBookParcel}>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Book a Parcel</h1>
         <p className="mt-1 text-white/50">Fill in the details and let AI handle the rest</p>

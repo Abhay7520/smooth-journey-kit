@@ -1,4 +1,5 @@
 import DashboardLayout from "@/components/DashboardLayout";
+import bgUserOrders from "@/assets/bg-user-orders.jpg";
 import { Link } from "react-router-dom";
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ const orders = [
 
 const UserOrders = () => {
   return (
-    <DashboardLayout role="user">
+    <DashboardLayout role="user" backgroundImage={bgUserOrders}>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">My Orders</h1>
         <p className="mt-1 text-white/50">All your parcel bookings</p>

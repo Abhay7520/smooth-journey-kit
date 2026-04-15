@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
+import bgTrackParcel from "@/assets/bg-track-parcel.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Package, MapPin, CheckCircle, Truck, Building2, Clock, AlertTriangle } from "lucide-react";
@@ -19,7 +20,7 @@ const TrackParcel = () => {
   const [tracked, setTracked] = useState(true);
 
   return (
-    <DashboardLayout role="user">
+    <DashboardLayout role="user" backgroundImage={bgTrackParcel}>
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Track Parcel</h1>
         <p className="mt-1 text-white/50">Enter your tracking ID for real-time updates</p>

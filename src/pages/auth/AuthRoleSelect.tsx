@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Package, User, Briefcase, ShieldCheck, ArrowRight, Zap, Mail, Truck, BarChart3 } from "lucide-react";
+import bgAuthSelect from "@/assets/bg-auth-select.jpg";
 
 const roles = [
   {
@@ -60,6 +61,11 @@ const AuthRoleSelect = ({ mode }: AuthRoleSelectProps) => {
 
   return (
     <div className="min-h-screen bg-[#050508] text-white flex flex-col items-center justify-center px-4 py-12 overflow-hidden relative">
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <img src={bgAuthSelect} alt="" className="h-full w-full object-cover opacity-[0.15]" loading="lazy" width={1920} height={1080} />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/50 via-[#050508]/70 to-[#050508]" />
+      </div>
       {/* Ambient background */}
       <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-orange-500/8 blur-[120px]" />
       <div className="absolute bottom-1/4 right-1/4 h-80 w-80 rounded-full bg-blue-500/8 blur-[100px]" />
