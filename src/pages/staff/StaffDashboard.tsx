@@ -1,17 +1,17 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import { Package, Truck, AlertTriangle, CheckCircle, Clock, TrendingUp, Bell, MapPin, ScanLine, MessageSquare, X, Navigation, Phone, IndianRupee, Star, KeyRound, PhoneCall } from "lucide-react";
+import { Package, Truck, AlertTriangle, CheckCircle, Clock, TrendingUp, Bell, MapPin, ScanLine, MessageSquare, X, Navigation, Phone, IndianRupee, Star, KeyRound, PhoneCall, Sparkles, Timer, Target, Award, Flame, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LeafletMap from "@/components/LeafletMap";
 
 // ── Staff data ──
 const stats = [
-  { label: "Assigned", value: "8", icon: Package, color: "text-orange-400", change: "+2 today" },
-  { label: "In Transit", value: "5", icon: Truck, color: "text-blue-400", change: "3 on route" },
-  { label: "High Risk", value: "2", icon: AlertTriangle, color: "text-red-400", change: "1 critical" },
-  { label: "Completed Today", value: "3", icon: CheckCircle, color: "text-emerald-400", change: "75% on time" },
+  { label: "Assigned", value: "8", icon: Package, color: "text-orange-400", bg: "from-orange-500/20 to-orange-500/5", border: "border-orange-500/20", change: "+2 today" },
+  { label: "In Transit", value: "5", icon: Truck, color: "text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20", change: "3 on route" },
+  { label: "High Risk", value: "2", icon: AlertTriangle, color: "text-red-400", bg: "from-red-500/20 to-red-500/5", border: "border-red-500/20", change: "1 critical" },
+  { label: "Completed Today", value: "3", icon: CheckCircle, color: "text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20", change: "75% on time" },
 ];
 
 const performanceStats = [
@@ -57,17 +57,34 @@ const earningsData = {
   today: 480, week: 3250, month: 14200, perDelivery: 60, incentiveBonus: 500, totalDeliveries: 8, completedToday: 2,
 };
 
+const achievements = [
+  { label: "Speed Demon", desc: "5 deliveries under 1 hour", icon: Flame, color: "text-orange-400", bg: "bg-orange-500/10" },
+  { label: "Perfect Week", desc: "100% on-time last week", icon: Target, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+  { label: "5-Star Streak", desc: "10 consecutive 5★ ratings", icon: Award, color: "text-amber-400", bg: "bg-amber-500/10" },
+];
+
 const StaffDashboard = () => {
-  // Staff state
   const [showNotifications, setShowNotifications] = useState(false);
   const [scanMode, setScanMode] = useState(false);
   const [scanResult, setScanResult] = useState<string | null>(null);
-
-  // Delivery Agent state
   const [isDeliveryMode, setIsDeliveryMode] = useState(false);
   const [otpInput, setOtpInput] = useState("");
   const [confirmed, setConfirmed] = useState<string[]>([]);
   const [showContact, setShowContact] = useState<string | null>(null);
+  const [shiftSeconds, setShiftSeconds] = useState(14520); // ~4hrs into shift
+
+  // Shift timer
+  useEffect(() => {
+    const interval = setInterval(() => setShiftSeconds(s => s + 1), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (s: number) => {
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
+  };
 
   const handleScan = () => {
     setScanMode(true);
@@ -91,31 +108,46 @@ const StaffDashboard = () => {
   }));
 
   const deliveryStats = [
-    { label: "Today's Stops", value: todaysStops.length.toString(), icon: MapPin, color: "text-blue-400" },
-    { label: "Completed", value: `${earningsData.completedToday + confirmed.length}`, icon: CheckCircle, color: "text-emerald-400" },
-    { label: "Today's Earnings", value: `₹${earningsData.today + confirmed.length * earningsData.perDelivery}`, icon: IndianRupee, color: "text-orange-400" },
-    { label: "Rating", value: "4.8 ★", icon: Star, color: "text-amber-400" },
+    { label: "Today's Stops", value: todaysStops.length.toString(), icon: MapPin, color: "text-blue-400", bg: "from-blue-500/20 to-blue-500/5", border: "border-blue-500/20" },
+    { label: "Completed", value: `${earningsData.completedToday + confirmed.length}`, icon: CheckCircle, color: "text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20" },
+    { label: "Today's Earnings", value: `₹${earningsData.today + confirmed.length * earningsData.perDelivery}`, icon: IndianRupee, color: "text-orange-400", bg: "from-orange-500/20 to-orange-500/5", border: "border-orange-500/20" },
+    { label: "Rating", value: "4.8 ★", icon: Star, color: "text-amber-400", bg: "from-amber-500/20 to-amber-500/5", border: "border-amber-500/20" },
   ];
 
   return (
     <DashboardLayout role="staff">
-      {/* Header with Delivery Agent Toggle */}
+      {/* Header */}
       <div className="mb-8 flex items-start justify-between">
-        <div>
+        <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
+          {!isDeliveryMode && (
+            <div className="mb-1 flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-orange-400" />
+              <span className="text-xs font-medium uppercase tracking-wider text-orange-400/80">Staff Control Center</span>
+            </div>
+          )}
           <h1 className="font-display text-3xl font-bold text-white">
-            {isDeliveryMode ? "Delivery Agent" : "Staff Dashboard"}
+            {isDeliveryMode ? "Delivery Agent" : "Welcome back, Staff 👋"}
           </h1>
           <p className="mt-1 text-white/50">
-            {isDeliveryMode ? "Your deliveries and route for today" : "Manage your assigned deliveries"}
+            {isDeliveryMode ? "Your deliveries and route for today" : <>You have <span className="font-semibold text-orange-400">8 assigned parcels</span> to manage today</>}
           </p>
-        </div>
-        <div className="flex gap-2">
-          {/* Delivery Agent Toggle */}
+        </motion.div>
+
+        <div className="flex items-center gap-2">
+          {/* Shift Timer */}
+          <div className="hidden md:flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-4 py-2 backdrop-blur-sm">
+            <Timer className="h-4 w-4 text-orange-400" />
+            <div>
+              <p className="text-[10px] text-white/30">Shift Time</p>
+              <p className="font-mono text-sm font-bold text-white">{formatTime(shiftSeconds)}</p>
+            </div>
+          </div>
+
           <Button
             size="sm"
             variant={isDeliveryMode ? "default" : "outline"}
             className={isDeliveryMode
-              ? "bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90"
+              ? "bg-gradient-to-r from-orange-500 to-violet-600 text-white shadow-lg shadow-orange-500/20 hover:opacity-90"
               : "border-white/10 bg-white/5 text-white hover:bg-white/10"}
             onClick={() => setIsDeliveryMode(!isDeliveryMode)}
           >
@@ -131,7 +163,7 @@ const StaffDashboard = () => {
                 <Bell className="h-4 w-4" />
                 <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">4</span>
               </Button>
-              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90" onClick={handleScan}>
+              <Button size="sm" className="bg-gradient-to-r from-orange-500 to-violet-600 text-white shadow-lg shadow-orange-500/20 hover:opacity-90" onClick={handleScan}>
                 <ScanLine className="mr-2 h-4 w-4" />
                 {scanMode ? "Scanning..." : "Scan Parcel"}
               </Button>
@@ -143,15 +175,16 @@ const StaffDashboard = () => {
       <AnimatePresence mode="wait">
         {isDeliveryMode ? (
           <motion.div key="delivery" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
-            {/* ─── DELIVERY AGENT VIEW ─── */}
-            {/* Stats */}
+            {/* Delivery Stats */}
             <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {deliveryStats.map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                  className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-5 backdrop-blur-sm">
+                <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                  className={`rounded-xl border ${s.border} bg-gradient-to-b ${s.bg} p-5 backdrop-blur-sm`}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/50">{s.label}</span>
-                    <s.icon className={`h-5 w-5 ${s.color}`} />
+                    <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.06] ${s.color}`}>
+                      <s.icon className="h-4 w-4" />
+                    </div>
                   </div>
                   <p className="mt-2 font-display text-2xl font-bold text-white">{s.value}</p>
                 </motion.div>
@@ -176,7 +209,7 @@ const StaffDashboard = () => {
               {/* Route & Stops */}
               <div className="lg:col-span-2 rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-sm">
                 <div className="flex items-center gap-2 border-b border-white/[0.06] p-5">
-                  <Navigation className="h-5 w-5 text-orange-400" />
+                  <Route className="h-5 w-5 text-orange-400" />
                   <h2 className="font-display text-lg font-semibold text-white">Today's Route & Stops</h2>
                   <span className="ml-auto text-xs text-white/30">{todaysStops.length} stops</span>
                 </div>
@@ -185,11 +218,12 @@ const StaffDashboard = () => {
                     const isDelivered = stop.status === "delivered" || confirmed.includes(stop.id);
                     const isCurrent = stop.status === "current" && !confirmed.includes(stop.id);
                     return (
-                      <div key={stop.id} className={`p-4 ${isCurrent ? "bg-orange-500/5" : "hover:bg-white/[0.04]"}`}>
+                      <div key={stop.id} className={`p-4 transition-colors ${isCurrent ? "bg-orange-500/5" : "hover:bg-white/[0.04]"}`}>
                         <div className="flex items-start gap-3">
                           <div className="mt-1 flex flex-col items-center">
-                            <div className={`flex h-6 w-6 items-center justify-center rounded-full ${isDelivered ? "bg-emerald-500/20" : isCurrent ? "bg-orange-500/20 ring-2 ring-orange-500/30" : "bg-white/[0.08]"
-                              }`}>
+                            <div className={`flex h-6 w-6 items-center justify-center rounded-full ${
+                              isDelivered ? "bg-emerald-500/20" : isCurrent ? "bg-orange-500/20 ring-2 ring-orange-500/30" : "bg-white/[0.08]"
+                            }`}>
                               {isDelivered ? <CheckCircle className="h-3.5 w-3.5 text-emerald-400" /> :
                                 isCurrent ? <Package className="h-3.5 w-3.5 text-orange-400" /> :
                                   <Clock className="h-3.5 w-3.5 text-white/30" />}
@@ -201,20 +235,21 @@ const StaffDashboard = () => {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
                               <span className={`text-sm font-medium ${isDelivered ? "text-white/40 line-through" : "text-orange-400"}`}>{stop.id}</span>
-                              <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${isDelivered ? "bg-emerald-500/10 text-emerald-400" : isCurrent ? "bg-orange-500/10 text-orange-400" : "bg-white/10 text-white/40"
-                                }`}>{isDelivered ? "Delivered" : isCurrent ? "Current" : stop.eta}</span>
+                              <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${
+                                isDelivered ? "bg-emerald-500/10 text-emerald-400" : isCurrent ? "bg-orange-500/10 text-orange-400" : "bg-white/10 text-white/40"
+                              }`}>{isDelivered ? "Delivered" : isCurrent ? "Current" : stop.eta}</span>
                             </div>
                             <p className={`mt-1 text-sm ${isDelivered ? "text-white/30" : "text-white/80"}`}>{stop.customer}</p>
                             <p className="text-xs text-white/40">{stop.address}</p>
 
                             {isCurrent && (
-                              <div className="mt-3 space-y-3">
+                              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} className="mt-3 space-y-3">
                                 <div className="flex items-center gap-2">
                                   <div className="flex items-center gap-2 rounded-lg border border-orange-500/30 bg-orange-500/5 px-3 py-2">
                                     <KeyRound className="h-4 w-4 text-orange-400" />
-                                    <input type="text" maxLength={4} placeholder="Enter OTP" value={otpInput}
+                                    <input type="text" maxLength={4} placeholder="OTP" value={otpInput}
                                       onChange={(e) => setOtpInput(e.target.value)}
-                                      className="w-16 bg-transparent text-sm font-mono text-white placeholder:text-white/30 outline-none" />
+                                      className="w-12 bg-transparent text-sm font-mono text-white placeholder:text-white/30 outline-none" />
                                   </div>
                                   <Button size="sm" className="bg-gradient-to-r from-orange-500 to-violet-600 text-white hover:opacity-90"
                                     onClick={() => handleConfirmOTP(stop.id)} disabled={otpInput.length < 4}>
@@ -230,7 +265,7 @@ const StaffDashboard = () => {
                                     <Navigation className="mr-1.5 h-3.5 w-3.5" /> Navigate
                                   </Button>
                                 </div>
-                              </div>
+                              </motion.div>
                             )}
 
                             <AnimatePresence>
@@ -266,8 +301,9 @@ const StaffDashboard = () => {
                 </div>
               </div>
 
-              {/* Earnings Sidebar */}
+              {/* Right sidebar */}
               <div className="space-y-6">
+                {/* Earnings */}
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                   className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-sm">
                   <div className="mb-4 flex items-center gap-2">
@@ -302,6 +338,27 @@ const StaffDashboard = () => {
                   </div>
                 </motion.div>
 
+                {/* Achievements */}
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}
+                  className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-5 backdrop-blur-sm">
+                  <h3 className="mb-3 font-display text-sm font-semibold text-white flex items-center gap-2">
+                    <Award className="h-4 w-4 text-amber-400" /> Achievements
+                  </h3>
+                  <div className="space-y-2">
+                    {achievements.map(a => (
+                      <div key={a.label} className="flex items-center gap-3 rounded-lg border border-white/[0.06] bg-white/[0.03] p-2.5">
+                        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${a.bg}`}>
+                          <a.icon className={`h-4 w-4 ${a.color}`} />
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-white">{a.label}</p>
+                          <p className="text-[10px] text-white/30">{a.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
                 {/* Progress */}
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
                   className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-sm">
@@ -319,8 +376,8 @@ const StaffDashboard = () => {
                       <span className="text-xs text-white/40">Remaining</span>
                       <span className="text-sm font-medium text-orange-400">{todaysStops.length - earningsData.completedToday - confirmed.length}</span>
                     </div>
-                    <div className="mt-2 h-2 rounded-full bg-white/[0.08]">
-                      <div className="h-full rounded-full bg-gradient-to-r from-orange-500 to-emerald-400"
+                    <div className="mt-2 h-2.5 rounded-full bg-white/[0.08]">
+                      <div className="h-full rounded-full bg-gradient-to-r from-orange-500 to-emerald-400 transition-all duration-500"
                         style={{ width: `${((earningsData.completedToday + confirmed.length) / todaysStops.length) * 100}%` }} />
                     </div>
                     <p className="text-center text-[10px] text-white/30">
@@ -333,7 +390,6 @@ const StaffDashboard = () => {
           </motion.div>
         ) : (
           <motion.div key="staff" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ duration: 0.3 }}>
-            {/* ─── STAFF VIEW ─── */}
             {/* Scan Result */}
             <AnimatePresence>
               {scanResult && (
@@ -350,7 +406,7 @@ const StaffDashboard = () => {
               )}
             </AnimatePresence>
 
-            {/* Notifications Panel */}
+            {/* Notifications */}
             <AnimatePresence>
               {showNotifications && (
                 <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
@@ -383,13 +439,15 @@ const StaffDashboard = () => {
             {/* Stat Cards */}
             <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((s, i) => (
-                <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                  className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-5 backdrop-blur-sm">
+                <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                  className={`group relative overflow-hidden rounded-xl border ${s.border} bg-gradient-to-b ${s.bg} p-5 backdrop-blur-sm transition-all hover:scale-[1.02] hover:shadow-lg`}>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/50">{s.label}</span>
-                    <s.icon className={`h-5 w-5 ${s.color}`} />
+                    <div className={`flex h-9 w-9 items-center justify-center rounded-lg bg-white/[0.06] ${s.color}`}>
+                      <s.icon className="h-4 w-4" />
+                    </div>
                   </div>
-                  <p className="mt-2 font-display text-2xl font-bold text-white">{s.value}</p>
+                  <p className="mt-3 font-display text-3xl font-bold text-white">{s.value}</p>
                   <p className="mt-1 text-xs text-white/30">{s.change}</p>
                 </motion.div>
               ))}
@@ -397,7 +455,6 @@ const StaffDashboard = () => {
 
             {/* Performance & Live Map */}
             <div className="mb-8 grid gap-6 lg:grid-cols-2">
-              {/* Performance */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
                 className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-sm">
                 <div className="mb-4 flex items-center gap-2">
@@ -412,8 +469,12 @@ const StaffDashboard = () => {
                         <span className="font-display text-sm font-bold text-white">{ps.value}{ps.suffix || ""}</span>
                       </div>
                       <div className="h-2 rounded-full bg-white/[0.08]">
-                        <div className={`h-full rounded-full bg-gradient-to-r ${ps.color}`}
-                          style={{ width: `${(ps.value / ps.max) * 100}%` }} />
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(ps.value / ps.max) * 100}%` }}
+                          transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
+                          className={`h-full rounded-full bg-gradient-to-r ${ps.color}`}
+                        />
                       </div>
                     </div>
                   ))}
@@ -423,7 +484,6 @@ const StaffDashboard = () => {
                 </div>
               </motion.div>
 
-              {/* Live Map */}
               <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
                 className="rounded-xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-sm">
                 <div className="mb-4 flex items-center justify-between">
@@ -459,7 +519,7 @@ const StaffDashboard = () => {
                   </thead>
                   <tbody>
                     {parcels.map((p) => (
-                      <tr key={p.id} className="border-b border-white/[0.06] last:border-0 hover:bg-white/[0.04]">
+                      <tr key={p.id} className="border-b border-white/[0.06] last:border-0 hover:bg-white/[0.04] transition-colors">
                         <td className="px-5 py-4 font-medium text-orange-400">{p.id}</td>
                         <td className="px-5 py-4 text-sm text-white/80">{p.dest}</td>
                         <td className="px-5 py-4">
