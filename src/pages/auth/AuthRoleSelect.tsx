@@ -75,21 +75,24 @@ const AuthRoleSelect = ({ mode }: AuthRoleSelectProps) => {
       />
 
       {/* Header */}
+      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="relative z-10 text-center mb-12"
       >
-        <Link to="/" className="inline-flex items-center gap-3 mb-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg shadow-orange-500/30">
-            <Package className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-2xl font-black tracking-tight">AIPOSTAL</span>
-        </Link>
+        <div className="flex flex-col items-center gap-4 mb-6">
+          <Link to="/" className="inline-flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-amber-400 shadow-lg shadow-orange-500/30">
+              <Package className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-2xl font-black tracking-tight">AIPOSTAL</span>
+          </Link>
 
-        <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-300 mb-4">
-          <Zap className="h-3 w-3" /> AI-Powered Platform
+          <div className="inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-1.5 text-xs font-semibold text-orange-300">
+            <Zap className="h-3 w-3" /> AI-Powered Platform
+          </div>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black tracking-tight">

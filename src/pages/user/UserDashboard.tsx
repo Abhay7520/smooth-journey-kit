@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis, BarChart, Bar } from "recharts";
 import { useState } from "react";
 
+
 const stats = [
   { label: "Active Parcels", value: "3", icon: Package, color: "text-orange-400", bg: "from-orange-500/20 to-orange-500/5", border: "border-orange-500/20", trend: "+1 this week", trendUp: true },
   { label: "Delivered", value: "12", icon: MapPin, color: "text-emerald-400", bg: "from-emerald-500/20 to-emerald-500/5", border: "border-emerald-500/20", trend: "All time", trendUp: true },
@@ -96,6 +97,7 @@ const UserDashboard = () => {
   };
 
   return (
+    
     <DashboardLayout role="user">
       {/* Welcome Banner */}
       <motion.div
@@ -476,6 +478,7 @@ const UserDashboard = () => {
         {showAiChat ? <X className="h-5 w-5 text-white" /> : <MessageSquare className="h-5 w-5 text-white" />}
       </motion.button>
     </DashboardLayout>
+    
   );
 };
 

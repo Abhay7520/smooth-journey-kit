@@ -181,6 +181,21 @@ const AuthPage = () => {
 
   return (
     <div className="flex min-h-screen bg-[#050508] text-white overflow-hidden">
+      {/* Global positioned Back to Role Selection button */}
+      <motion.div
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed top-[4.5rem] left-4 z-50 hidden md:block"
+      >
+        <Link
+          to={`/auth/select/${mode}`}
+          className="flex items-center justify-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-2.5 text-sm font-medium text-white/60 backdrop-blur-md transition-all hover:text-white hover:bg-white/10 hover:border-white/20 hover:scale-105 active:scale-95"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to role selection
+        </Link>
+      </motion.div>
+
       {/* ── LEFT: Visual Panel ── */}
       <div className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0812] via-[#080510] to-[#050508]" />
@@ -239,13 +254,17 @@ const AuthPage = () => {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="w-full max-w-md"
         >
-          {/* Back button */}
+
+
+
+          {/* Mobile Back button */}
           <Link
             to={`/auth/select/${mode}`}
-            className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 transition-colors mb-6"
+            className="mt-10 inline-flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-sm text-white/60 hover:text-white hover:bg-white/10 transition-all md:hidden"
           >
-            <ArrowLeft className="h-4 w-4" /> Back to role selection
+            <ArrowLeft className="h-4 w-4" /> Back
           </Link>
+
 
           {/* Mobile logo */}
           <Link to="/" className="mb-6 flex items-center gap-2.5 font-black text-xl text-white lg:hidden">
@@ -418,11 +437,10 @@ const AuthPage = () => {
                 <Link
                   key={r}
                   to={`/auth/${r}/${mode}`}
-                  className={`rounded-lg px-4 py-1.5 text-xs font-bold capitalize transition-all duration-200 ${
-                    r === role
-                      ? `bg-gradient-to-r ${roleConfigs[r].gradient} text-white`
-                      : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70"
-                  }`}
+                  className={`rounded-lg px-4 py-1.5 text-xs font-bold capitalize transition-all duration-200 ${r === role
+                    ? `bg-gradient-to-r ${roleConfigs[r].gradient} text-white`
+                    : "bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70"
+                    }`}
                 >
                   {r}
                 </Link>
@@ -432,6 +450,7 @@ const AuthPage = () => {
         </motion.div>
       </div>
     </div>
+
   );
 };
 
