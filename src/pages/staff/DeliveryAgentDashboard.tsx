@@ -1,5 +1,4 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import bgDeliveryAgent from "@/assets/bg-delivery-agent.jpg";
 import { Package, CheckCircle, MapPin, Phone, IndianRupee, Navigation, Clock, Star, KeyRound, X, PhoneCall, MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,7 +45,7 @@ const DeliveryAgentDashboard = () => {
   ];
 
   return (
-    <DashboardLayout role="staff" backgroundImage={bgDeliveryAgent}>
+    <DashboardLayout role="staff">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Delivery Agent</h1>
         <p className="mt-1 text-white/50">Your deliveries and route for today</p>

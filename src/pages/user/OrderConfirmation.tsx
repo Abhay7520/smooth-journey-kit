@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
-import bgOrderConfirm from "@/assets/bg-order-confirm.jpg";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, MapPin, Copy, Clock, Shield } from "lucide-react";
 import { motion } from "framer-motion";
@@ -10,7 +9,7 @@ const OrderConfirmation = () => {
   const trackingId = "AP-20260004";
 
   return (
-    <DashboardLayout role="user" backgroundImage={bgOrderConfirm}>
+    <DashboardLayout role="user">
       <div className="flex min-h-[60vh] items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}

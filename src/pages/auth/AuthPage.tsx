@@ -10,15 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import bgAuthUser from "@/assets/bg-auth-user.jpg";
-import bgAuthStaff from "@/assets/bg-auth-staff.jpg";
-import bgAuthAdmin from "@/assets/bg-auth-admin.jpg";
-
-const authBgMap: Record<string, string> = {
-  user: bgAuthUser,
-  staff: bgAuthStaff,
-  admin: bgAuthAdmin,
-};
 
 const roleConfigs = {
   user: {
@@ -189,12 +180,7 @@ const AuthPage = () => {
   const toggleMode = isLogin ? "register" : "login";
 
   return (
-    <div className="flex min-h-screen bg-[#050508] text-white overflow-hidden relative">
-      {/* Background image */}
-      <div className="absolute inset-0 z-0">
-        <img src={authBgMap[role] || bgAuthUser} alt="" className="h-full w-full object-cover opacity-[0.1]" loading="lazy" width={1920} height={1080} />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050508]/60 via-[#050508]/70 to-[#050508]/90" />
-      </div>
+    <div className="flex min-h-screen bg-[#050508] text-white overflow-hidden">
       {/* ── LEFT: Visual Panel ── */}
       <div className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0812] via-[#080510] to-[#050508]" />

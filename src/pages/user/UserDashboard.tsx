@@ -1,5 +1,4 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import bgUserDashboard from "@/assets/bg-user-dashboard.jpg";
 import { Package, MapPin, Clock, TrendingUp, ArrowUpRight, ArrowRight, Bell, Sparkles, Shield, ChevronRight, MessageSquare, Zap, Calendar, BarChart3, X, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -97,7 +96,7 @@ const UserDashboard = () => {
   };
 
   return (
-    <DashboardLayout role="user" backgroundImage={bgUserDashboard}>
+    <DashboardLayout role="user">
       {/* Welcome Banner */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}

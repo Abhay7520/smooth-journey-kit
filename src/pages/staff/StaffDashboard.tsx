@@ -1,5 +1,4 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import bgStaffDashboard from "@/assets/bg-staff-dashboard.jpg";
 import { Package, Truck, AlertTriangle, CheckCircle, Clock, TrendingUp, Bell, MapPin, ScanLine, MessageSquare, X, Navigation, Phone, IndianRupee, Star, KeyRound, PhoneCall, Sparkles, Timer, Target, Award, Flame, Route } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -116,7 +115,7 @@ const StaffDashboard = () => {
   ];
 
   return (
-    <DashboardLayout role="staff" backgroundImage={bgStaffDashboard}>
+    <DashboardLayout role="staff">
       {/* Header */}
       <div className="mb-8 flex items-start justify-between">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>

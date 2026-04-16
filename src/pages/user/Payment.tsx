@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
-import bgPayment from "@/assets/bg-payment.jpg";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,7 +23,7 @@ const Payment = () => {
   };
 
   return (
-    <DashboardLayout role="user" backgroundImage={bgPayment}>
+    <DashboardLayout role="user">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Payment</h1>
         <p className="mt-1 text-white/50">Complete your booking</p>

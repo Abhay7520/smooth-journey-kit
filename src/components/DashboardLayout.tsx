@@ -6,7 +6,6 @@ import CommandPalette from "./CommandPalette";
 interface DashboardLayoutProps {
   children: React.ReactNode;
   role: "user" | "staff" | "admin";
-  backgroundImage?: string;
 }
 
 const navItems = {
@@ -32,20 +31,13 @@ const navItems = {
 
 const roleLabels = { user: "User", staff: "Staff", admin: "Admin" };
 
-const DashboardLayout = ({ children, role, backgroundImage }: DashboardLayoutProps) => {
+const DashboardLayout = ({ children, role }: DashboardLayoutProps) => {
   const location = useLocation();
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const items = navItems[role];
 
   return (
     <div className="flex min-h-screen bg-[#050508]">
-      {/* Background image */}
-      {backgroundImage && (
-        <div className="pointer-events-none fixed inset-0 z-0">
-          <img src={backgroundImage} alt="" className="h-full w-full object-cover opacity-[0.12]" loading="lazy" width={1920} height={1080} />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050508]/50 via-[#050508]/70 to-[#050508]/90" />
-        </div>
-      )}
       {/* Ambient glow orbs */}
       <div className="pointer-events-none fixed inset-0 z-0">
         <div className="absolute left-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-orange-500/5 blur-[120px]" />

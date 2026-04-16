@@ -1,5 +1,4 @@
 import DashboardLayout from "@/components/DashboardLayout";
-import bgAdminDashboard from "@/assets/bg-admin-dashboard.jpg";
 import { Package, Truck, AlertTriangle, CheckCircle, Users, Clock, Trophy, IndianRupee, Bell, ShieldAlert } from "lucide-react";
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, AreaChart, Area } from "recharts";
@@ -81,7 +80,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const AdminDashboard = () => {
   return (
-    <DashboardLayout role="admin" backgroundImage={bgAdminDashboard}>
+    <DashboardLayout role="admin">
       <div className="mb-8">
         <h1 className="font-display text-3xl font-bold text-white">Admin Dashboard</h1>
         <p className="mt-1 text-white/50">System overview and AI analytics</p>
