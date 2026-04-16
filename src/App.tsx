@@ -3,18 +3,22 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Landing from "./pages/Landing";
-import AuthRoleSelect from "./pages/auth/AuthRoleSelect";
-import AuthPage from "./pages/auth/AuthPage";
-import UserDashboard from "./pages/user/UserDashboard";
-import BookParcel from "./pages/user/BookParcel";
-import Payment from "./pages/user/Payment";
-import OrderConfirmation from "./pages/user/OrderConfirmation";
-import TrackParcel from "./pages/user/TrackParcel";
-import UserOrders from "./pages/user/UserOrders";
-import StaffDashboard from "./pages/staff/StaffDashboard";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import NotFound from "./pages/NotFound";
+import { lazy, Suspense } from "react";
+import PostcardLoader from "./components/PostcardLoader";
+import BackButton from "./components/BackButton";
+
+const Landing = lazy(() => import("./pages/Landing"));
+const AuthRoleSelect = lazy(() => import("./pages/auth/AuthRoleSelect"));
+const AuthPage = lazy(() => import("./pages/auth/AuthPage"));
+const UserDashboard = lazy(() => import("./pages/user/UserDashboard"));
+const BookParcel = lazy(() => import("./pages/user/BookParcel"));
+const Payment = lazy(() => import("./pages/user/Payment"));
+const OrderConfirmation = lazy(() => import("./pages/user/OrderConfirmation"));
+const TrackParcel = lazy(() => import("./pages/user/TrackParcel"));
+const UserOrders = lazy(() => import("./pages/user/UserOrders"));
+const StaffDashboard = lazy(() => import("./pages/staff/StaffDashboard"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -24,6 +28,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <BackButton />
+        <Suspense fallback={<PostcardLoader />}>
         <Routes>
           <Route path="/" element={<Landing />} />
           {/* Auth routes */}
