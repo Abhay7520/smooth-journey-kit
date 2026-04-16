@@ -10,7 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import authBgUser from "@/assets/auth-bg-user.jpg";
+import authBgStaff from "@/assets/auth-bg-staff.jpg";
+import authBgAdmin from "@/assets/auth-bg-admin.jpg";
 
+const roleBgImages: Record<string, string> = {
+  user: authBgUser,
+  staff: authBgStaff,
+  admin: authBgAdmin,
+};
 const roleConfigs = {
   user: {
     label: "User",
