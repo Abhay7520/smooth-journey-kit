@@ -10,7 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import authBgUser from "@/assets/auth-bg-user.jpg";
+import authBgStaff from "@/assets/auth-bg-staff.jpg";
+import authBgAdmin from "@/assets/auth-bg-admin.jpg";
 
+const roleBgImages: Record<string, string> = {
+  user: authBgUser,
+  staff: authBgStaff,
+  admin: authBgAdmin,
+};
 const roleConfigs = {
   user: {
     label: "User",
@@ -183,7 +191,17 @@ const AuthPage = () => {
     <div className="flex min-h-screen bg-[#050508] text-white overflow-hidden">
       {/* ── LEFT: Visual Panel ── */}
       <div className="hidden lg:flex w-1/2 relative items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0812] via-[#080510] to-[#050508]" />
+        {/* Role-specific background image */}
+        <motion.img
+          key={role}
+          src={roleBgImages[role]}
+          alt=""
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0812]/80 via-[#080510]/60 to-[#050508]/90" />
 
         {/* Ambient orbs */}
         <div className={`absolute top-1/4 left-1/4 h-80 w-80 rounded-full ${cfg.glow} blur-[100px] transition-colors duration-700`} />
