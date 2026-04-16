@@ -58,6 +58,7 @@ const App = () => (
           <Route path="/admin/anomalies" element={<AdminDashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
